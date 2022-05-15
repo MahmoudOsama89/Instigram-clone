@@ -31,11 +31,17 @@
 				{{$post->caption}}
 			</p>
 			<hr>
-			<div class="row pb-4 pt-4">
-				<form action="/like/{{$post->id}}" method="post">
+			<div class="row pb-4 pt-4 d-flex">
+				<div class="col-6">
+					<form action="/like/{{$post->id}}" method="post">
 					@csrf
-					<button class="btn col-3 btn-primary" type="submit">{{$isLiked}}</button>
+					<button class="btn  btn-primary" type="submit">{{$isLiked}}</button>
 				</form>
+				</div>
+				
+				<div class="col-6">
+					{{$post->likes()->count()}} Likes
+				</div>
 				
 			</div>
 			<div class="row">

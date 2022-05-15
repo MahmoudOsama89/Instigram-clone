@@ -26,11 +26,8 @@
                         alert(JSON.stringify(resposne.data));
                         alert(this.userId);
                     }).catch(errors=>{
-                    console.log("fuck");
-                    console.log("fuck"+errors);
-                    errors = "yes"+errors;
+                    errors = "stirng"+errors;
                         if(errors.includes("401")){
-                            console.log("fuck again");
                             window.location = "/login";
                         }
                         

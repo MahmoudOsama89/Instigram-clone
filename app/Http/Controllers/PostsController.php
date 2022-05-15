@@ -18,7 +18,7 @@ class PostsController extends Controller
     public function comment(Post $post){
         if(auth()->user()){
             $data = request()->validate(["comment"=>"required"]);
-            $post->comments()->with("User")->create(array_merge($data,["user_id"=>auth()->user()->id]));
+            $post->comments()->create(array_merge($data,["user_id"=>auth()->user()->id]));
             //dd($de);
             return redirect("/p/{$post->id}");
         }
@@ -47,15 +47,16 @@ class PostsController extends Controller
 
     public function show(\App\Models\Post $post){
         $comments = $post->comments;
-        $isLiked = auth()->user()->liked()->where("post_id",$post->id)->exists();
+        $isLiked = auth()->user()->liked()->with("User")->where("post_id",$post->id)->exists();
         if($isLiked){
             $isLiked = "unlike";
         }else{
             $isLiked = "like";
         }
-        $notAuthComments = $post->comments->where('user_id', '!=' , auth()->user()->id);
+
+        //$notAuthComments = $post->comments()->with("User")->where('user_id', '!=' , auth()->user()->id)->toArray();
         //$comments = array_merge($comments,$notAuthComments);
-        //dd($comments);
+        //dd($notAuthComments);
         return view("posts.show",compact("post","comments","isLiked"));
     }
 }
