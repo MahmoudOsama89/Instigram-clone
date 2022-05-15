@@ -32,6 +32,7 @@
 				
 				<div class="row">
 					<form action="/comment/{{$post->id}}" method="post">
+                        @csrf
 						<textarea name="comment"></textarea>
 						<button type="submit" class="btn btn-primary">Add Comment</button>
 				</div>
